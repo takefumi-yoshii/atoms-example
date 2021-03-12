@@ -28,57 +28,80 @@ const useAsyncToggle = () => {
 };
 // ______________________________________________________
 //
-const RadioTemplate: Story<React.PropsWithRef<Props>> = (args) => {
-  return (
-    <div>
-      <LabeledInput {...args}>YES</LabeledInput>
-      <br />
-      <LabeledInput {...args}>NO</LabeledInput>
-      <br />
-      <LabeledInput {...args} disabled>
-        Disabled
-      </LabeledInput>
-    </div>
-  );
-};
-const CheckboxTemplate: Story<React.PropsWithRef<Props>> = (args) => {
+const Template: Story = () => {
   const [values, handlers] = useAsyncToggle();
   return (
-    <div>
-      <LabeledInput {...args}>Uncontrolled</LabeledInput>
-      <br />
-      <LabeledInput {...args}>Uncontrolled</LabeledInput>
-      <br />
-      <LabeledInput
-        {...args}
-        checked={values.checked}
-        disabled={values.inProgress}
-        onChange={handlers.handleChange}
-      >
-        {values.inProgress ? "loading..." : "Controlled AsyncToggle"}
-      </LabeledInput>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td style={{ width: "200px" }}>
+            <h2>Radio</h2>
+            <div>
+              <LabeledInput type="radio" shape="radio" name="n1">
+                YES
+              </LabeledInput>
+              <br />
+              <LabeledInput type="radio" shape="radio" name="n1">
+                NO
+              </LabeledInput>
+              <br />
+              <LabeledInput type="radio" shape="radio" name="n1" disabled>
+                Disabled
+              </LabeledInput>
+            </div>
+          </td>
+          <td style={{ width: "200px" }}>
+            <h2>Checkbox</h2>
+            <div>
+              <LabeledInput type="checkbox" shape="checkbox" name="n2_1">
+                YES
+              </LabeledInput>
+              <br />
+              <LabeledInput type="checkbox" shape="checkbox" name="n2_2">
+                NO
+              </LabeledInput>
+              <br />
+              <LabeledInput
+                type="checkbox"
+                shape="checkbox"
+                name="n2_3"
+                disabled
+              >
+                Disabled
+              </LabeledInput>
+            </div>
+          </td>
+          <td style={{ width: "300px" }}>
+            <h2>Toggle</h2>
+            <div>
+              <LabeledInput type="checkbox" shape="toggle" name="n3_1">
+                Uncontrolled
+              </LabeledInput>
+              <br />
+              <LabeledInput
+                type="checkbox"
+                shape="toggle"
+                name="n3_2"
+                checked={values.checked}
+                disabled={values.inProgress}
+                onChange={handlers.handleChange}
+              >
+                {values.inProgress ? "loading..." : "Controlled AsyncToggle"}
+              </LabeledInput>
+              <br />
+              <LabeledInput type="checkbox" shape="toggle" name="n3_3" disabled>
+                Disabled
+              </LabeledInput>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 // ______________________________________________________
 //
-export const Radio: Story<React.PropsWithRef<Props>> = RadioTemplate.bind({});
-Radio.args = { type: "radio", shape: "radio", name: "n1" };
-Radio.storyName = "Radio";
-
-export const Checkbox: Story<React.PropsWithRef<Props>> = CheckboxTemplate.bind(
-  {}
-);
-Checkbox.args = { type: "checkbox", shape: "checkbox", name: "n1" };
-Checkbox.storyName = "Checkbox";
-
-export const Toggle: Story<React.PropsWithRef<Props>> = CheckboxTemplate.bind(
-  {}
-);
-Toggle.args = { type: "checkbox", shape: "toggle", name: "n1" };
-Toggle.storyName = "Toggle";
-// ______________________________________________________
-//
+export const Index: Story<React.PropsWithRef<Props>> = Template.bind({});
 export default {
   title: "atoms/LabeledInput",
 };

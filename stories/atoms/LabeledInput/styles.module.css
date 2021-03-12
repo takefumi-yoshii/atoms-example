@@ -14,26 +14,26 @@
   position: absolute;
 }
 
-.radio > input:checked + * {
+.radio > input:checked + span {
   background-color: #fff;
   border-color: #419ce1;
 }
 
-.radio > input:checked + *::before {
+.radio > input:checked + span::before {
   background-color: #419ce1;
   transform: scale(1);
 }
 
-.radio > input:disabled + * {
+.radio > input:disabled + span {
   pointer-events: none;
   border-color: #ededed;
 }
 
-.radio > input:disabled + *::before {
+.radio > input:disabled + span::before {
   background-color: #ededed;
 }
 
-.radio > input + * {
+.radio > input + span {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -47,7 +47,7 @@
   cursor: pointer;
 }
 
-.radio > input + *::before {
+.radio > input + span::before {
   content: "";
   position: absolute;
   width: 14px;
@@ -77,21 +77,21 @@
   position: absolute;
 }
 
-.checkbox > input:checked + * {
+.checkbox > input:checked + span {
   background-color: #41e17c;
 }
 
-.checkbox > input:checked + *::before {
+.checkbox > input:checked + span::before {
   transform: rotate(45deg) scale(1);
 }
 
-.checkbox > input:disabled + * {
+.checkbox > input:disabled + span {
   pointer-events: none;
   background-color: #eee;
   border-color: #ededed;
 }
 
-.checkbox > input + * {
+.checkbox > input + span {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -103,7 +103,7 @@
   cursor: pointer;
 }
 
-.checkbox > input + *::before {
+.checkbox > input + span::before {
   content: "";
   position: absolute;
   width: 6px;
@@ -132,21 +132,21 @@
   position: absolute;
 }
 
-.toggle > input:checked + * {
+.toggle > input:checked + span {
   background-color: #41e17c;
 }
 
-.toggle > input:checked + *::before {
+.toggle > input:checked + span::before {
   left: 25px;
 }
 
-.toggle > input:disabled + * {
+.toggle > input:disabled + span {
   pointer-events: none;
   background-color: #eee;
   border-color: #ededed;
 }
 
-.toggle > input + * {
+.toggle > input + span {
   display: inline-block;
   width: 48px;
   height: 24px;
@@ -160,7 +160,7 @@
   cursor: pointer;
 }
 
-.toggle > input + *::before {
+.toggle > input + span::before {
   content: "";
   position: absolute;
   width: 22px;
