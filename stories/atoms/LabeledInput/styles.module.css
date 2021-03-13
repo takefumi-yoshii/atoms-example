@@ -19,7 +19,17 @@
   border-color: #419ce1;
 }
 
+.checkbox > input:focus + span {
+  border-color: #419ce1;
+  box-shadow: 0px 0px 3px #419ce1;
+}
+
 .radio > input:checked + span::before {
+  background-color: #419ce1;
+  transform: scale(1);
+}
+
+.radio > input:focus + span::before {
   background-color: #419ce1;
   transform: scale(1);
 }
@@ -81,6 +91,11 @@
   background-color: #41e17c;
 }
 
+.checkbox > input:focus + span {
+  border-color: #41e17c;
+  box-shadow: 0px 0px 3px #41e17c;
+}
+
 .checkbox > input:checked + span::before {
   transform: rotate(45deg) scale(1);
 }
@@ -97,6 +112,7 @@
   height: 24px;
   margin-right: 0.5em;
   position: relative;
+  border: 1px solid #c1c1c1;
   background-color: #f0f0f0;
   transition-duration: 0.2s;
   transition-property: background-color;
@@ -134,6 +150,11 @@
 
 .toggle > input:checked + span {
   background-color: #41e17c;
+}
+
+.toggle > input:focus + span {
+  border-color: #41e17c;
+  box-shadow: 0px 0px 3px #41e17c;
 }
 
 .toggle > input:checked + span::before {

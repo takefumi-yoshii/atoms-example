@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
 import React from "react";
-import { LabeledInput, Props } from "./LabeledInput";
+import { LabeledInput } from "./LabeledInput";
 // ______________________________________________________
 //
 const wait = async () => {
@@ -50,14 +50,22 @@ const Template: Story = () => {
             <div>
               <LabeledInput
                 shape="radio"
-                inputProps={{ type: "radio", name: "n1", value: "0" }}
+                inputProps={{
+                  type: "radio",
+                  name: "n1",
+                  value: "0",
+                }}
               >
                 YES
               </LabeledInput>
               <br />
               <LabeledInput
                 shape="radio"
-                inputProps={{ type: "radio", name: "n1", value: "1" }}
+                inputProps={{
+                  type: "radio",
+                  name: "n1",
+                  value: "1",
+                }}
               >
                 NO
               </LabeledInput>
@@ -149,7 +157,7 @@ const Template: Story = () => {
 };
 // ______________________________________________________
 //
-export const Index: Story<React.PropsWithRef<Props>> = Template.bind({});
+export const Index = Template.bind({});
 export default {
   title: "atoms/LabeledInput",
 };

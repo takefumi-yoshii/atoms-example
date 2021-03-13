@@ -27,7 +27,7 @@ export const LabeledInput: React.FC<Props> = ({
   labelProps,
 }) => (
   <Label {...labelProps} className={styles[shape]}>
-    <Input {...inputProps} />
+    <Input {...inputProps} tabIndex={0} />
     <span />
     {children}
   </Label>
