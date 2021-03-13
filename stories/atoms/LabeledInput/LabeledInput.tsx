@@ -1,19 +1,34 @@
 import React from "react";
 import styles from "./styles.module.css";
-
-export type Props = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
+// ______________________________________________________
+//
+type Props = {
   shape: "checkbox" | "radio" | "toggle";
+  inputProps: React.ComponentPropsWithRef<"input">;
+  labelProps?: React.ComponentPropsWithRef<"label">;
 };
+// ______________________________________________________
+//
+const Input = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentPropsWithoutRef<"input">
+>((props, ref) => <input {...props} ref={ref} />);
 
-export const LabeledInput = React.forwardRef<HTMLInputElement, Props>(
-  ({ children, shape, ...props }, ref) => (
-    <label className={styles[shape]}>
-      <input {...props} ref={ref} />
-      <span />
-      {children}
-    </label>
-  )
+const Label = React.forwardRef<
+  HTMLLabelElement,
+  React.ComponentPropsWithoutRef<"label">
+>((props, ref) => <label {...props} ref={ref} />);
+// ______________________________________________________
+//
+export const LabeledInput: React.FC<Props> = ({
+  children,
+  shape,
+  inputProps,
+  labelProps,
+}) => (
+  <Label {...labelProps} className={styles[shape]}>
+    <Input {...inputProps} />
+    <span />
+    {children}
+  </Label>
 );

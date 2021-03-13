@@ -154,7 +154,7 @@
   position: relative;
   border: 1px solid #c1c1c1;
   border-radius: 24px;
-  background-color: rgb(216, 216, 216);
+  background-color: #d8d8d8;
   transition-duration: 0.2s;
   transition-property: background-color;
   cursor: pointer;

@@ -7,29 +7,40 @@ const wait = async () => {
   await new Promise((resolve) => {
     setTimeout(resolve, 600);
   });
-  if (Math.random() > 0.8) throw Error("failed");
+  if (Math.random() > 0.5) throw Error("failed");
 };
-const useAsyncToggle = () => {
+function useAsyncToggle<T>(props: {
+  asyncFuntion: (event: React.ChangeEvent<HTMLInputElement>) => Promise<T>;
+  handleSuccess?: (res: T) => void;
+  handleError?: (err: any) => void;
+}) {
   const [checked, setChecked] = React.useState(false);
   const [inProgress, setInProgress] = React.useState(false);
-  const handleChange = () => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInProgress(true);
-    wait()
-      .then(() => {
+    props
+      .asyncFuntion(event)
+      .then((res) => {
         setInProgress(false);
         setChecked((prev) => !prev);
+        props.handleSuccess && props.handleSuccess(res);
       })
-      .catch(() => {
+      .catch((err) => {
         setInProgress(false);
-        alert("random fail");
+        props.handleError && props.handleError(err);
       });
   };
   return [{ checked, inProgress }, { handleChange }] as const;
-};
+}
 // ______________________________________________________
 //
 const Template: Story = () => {
-  const [values, handlers] = useAsyncToggle();
+  const [values, handlers] = useAsyncToggle({
+    asyncFuntion: wait,
+    handleError: () => {
+      alert("random fail");
+    },
+  });
   return (
     <table>
       <tbody>
@@ -37,15 +48,29 @@ const Template: Story = () => {
           <td style={{ width: "200px" }}>
             <h2>Radio</h2>
             <div>
-              <LabeledInput type="radio" shape="radio" name="n1">
+              <LabeledInput
+                shape="radio"
+                inputProps={{ type: "radio", name: "n1", value: "0" }}
+              >
                 YES
               </LabeledInput>
               <br />
-              <LabeledInput type="radio" shape="radio" name="n1">
+              <LabeledInput
+                shape="radio"
+                inputProps={{ type: "radio", name: "n1", value: "1" }}
+              >
                 NO
               </LabeledInput>
               <br />
-              <LabeledInput type="radio" shape="radio" name="n1" disabled>
+              <LabeledInput
+                shape="radio"
+                inputProps={{
+                  type: "radio",
+                  name: "n1",
+                  value: "2",
+                  disabled: true,
+                }}
+              >
                 Disabled
               </LabeledInput>
             </div>
@@ -53,19 +78,28 @@ const Template: Story = () => {
           <td style={{ width: "200px" }}>
             <h2>Checkbox</h2>
             <div>
-              <LabeledInput type="checkbox" shape="checkbox" name="n2_1">
+              <LabeledInput
+                shape="checkbox"
+                inputProps={{ type: "checkbox", name: "n2", value: "0" }}
+              >
                 YES
               </LabeledInput>
               <br />
-              <LabeledInput type="checkbox" shape="checkbox" name="n2_2">
+              <LabeledInput
+                shape="checkbox"
+                inputProps={{ type: "checkbox", name: "n2", value: "1" }}
+              >
                 NO
               </LabeledInput>
               <br />
               <LabeledInput
-                type="checkbox"
                 shape="checkbox"
-                name="n2_3"
-                disabled
+                inputProps={{
+                  type: "checkbox",
+                  name: "n2",
+                  value: "2",
+                  disabled: true,
+                }}
               >
                 Disabled
               </LabeledInput>
@@ -74,22 +108,36 @@ const Template: Story = () => {
           <td style={{ width: "300px" }}>
             <h2>Toggle</h2>
             <div>
-              <LabeledInput type="checkbox" shape="toggle" name="n3_1">
+              <LabeledInput
+                shape="toggle"
+                inputProps={{ type: "checkbox", name: "n3", value: "0" }}
+              >
                 Uncontrolled
               </LabeledInput>
               <br />
               <LabeledInput
-                type="checkbox"
                 shape="toggle"
-                name="n3_2"
-                checked={values.checked}
-                disabled={values.inProgress}
-                onChange={handlers.handleChange}
+                inputProps={{
+                  type: "checkbox",
+                  name: "n3",
+                  value: "1",
+                  checked: values.checked,
+                  disabled: values.inProgress,
+                  onChange: handlers.handleChange,
+                }}
               >
                 {values.inProgress ? "loading..." : "Controlled AsyncToggle"}
               </LabeledInput>
               <br />
-              <LabeledInput type="checkbox" shape="toggle" name="n3_3" disabled>
+              <LabeledInput
+                shape="toggle"
+                inputProps={{
+                  type: "checkbox",
+                  name: "n3",
+                  value: "2",
+                  disabled: true,
+                }}
+              >
                 Disabled
               </LabeledInput>
             </div>
